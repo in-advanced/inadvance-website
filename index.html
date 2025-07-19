@@ -1,0 +1,1856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="InAdvance - Impulsa tu negocio con nuestra experiencia en datos y desarrollos digitales">
+    <meta name="keywords" content="transformación digital, data analytics, consultoría estratégica, desarrollo web">
+    <meta name="author" content="InAdvance">
+    
+    <title>InAdvance - Transformación Digital y Data Analytics</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhfDwAChwGA60e6kgAAAABJRU5ErkJggg==">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome para iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ===============================================
+           DOCUMENTACIÓN: Variables CSS y Reset Global
+           ===============================================
+           Definimos variables CSS para mantener consistencia
+           en colores, espaciados y transiciones. Esto facilita
+           cambios futuros y mantiene el código DRY.
+        */
+        :root {
+            /* Colores principales - Paleta moderna y relajante */
+            --primary-color: #00D4AA;      /* Verde agua - transmite innovación */
+            --secondary-color: #1A2332;     /* Azul oscuro - profesionalismo */
+            --accent-color: #FF6B6B;        /* Coral suave - CTAs */
+            --dark-bg: #0F1419;             /* Fondo oscuro principal */
+            --light-bg: #F8FAFC;            /* Fondo claro */
+            --text-primary: #E4E6EB;        /* Texto claro */
+            --text-secondary: #8B92A0;      /* Texto secundario */
+            --card-bg: rgba(26, 35, 50, 0.6); /* Fondo tarjetas con transparencia */
+            
+            /* Espaciados */
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 3rem;
+            --spacing-xl: 4rem;
+            
+            /* Transiciones */
+            --transition-fast: 0.3s ease;
+            --transition-medium: 0.5s ease;
+            --transition-slow: 0.8s ease;
+            
+            /* Sombras */
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+            --shadow-glow: 0 0 30px rgba(0, 212, 170, 0.3);
+        }
+
+        /* Reset CSS para consistencia entre navegadores */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth; /* Scroll suave para navegación interna */
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden; /* Evita scroll horizontal */
+        }
+
+        /* ===============================================
+           COMPONENTES REUTILIZABLES
+           =============================================== */
+        
+        /* Contenedor principal con máximo ancho */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        /* Botones principales - 3 variantes */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto de onda al hacer click */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), #00B894);
+            color: white;
+            box-shadow: 0 4px 15px rgba(0, 212, 170, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 212, 170, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-accent {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        /* ===============================================
+           NAVEGACIÓN
+           =============================================== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all var(--transition-fast);
+        }
+
+        nav.scrolled {
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color var(--transition-fast);
+            position: relative;
+        }
+
+        /* Efecto hover subrayado animado */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width var(--transition-fast);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Menú móvil */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* ===============================================
+           HERO SECTION
+           =============================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding-top: 80px;
+            overflow: hidden;
+        }
+
+        /* Fondo con efecto de partículas animadas */
+        .particles-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        /* Creamos partículas CSS puras */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(100vh) translateX(0);
+            }
+            to {
+                transform: translateY(-100vh) translateX(100px);
+            }
+        }
+
+        /* Contenido del Hero */
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            margin-bottom: var(--spacing-md);
+            line-height: 1.2;
+        }
+
+        /* Efecto de gradiente en texto */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary-color), #00B894, var(--accent-color));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+
+        .hero-text p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-lg);
+            max-width: 600px;
+        }
+
+        /* Grupo de CTAs */
+        .cta-group {
+            display: flex;
+            gap: var(--spacing-sm);
+            flex-wrap: wrap;
+        }
+
+        /* Imagen del hero con efecto 3D */
+        .hero-image {
+            position: relative;
+        }
+
+        .hero-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform var(--transition-medium);
+        }
+
+        .hero-image:hover img {
+            transform: perspective(1000px) rotateY(0deg);
+        }
+
+        /* Efecto de red neuronal de fondo */
+        .neural-network {
+            position: absolute;
+            top: 50%;
+            right: -100px;
+            width: 600px;
+            height: 600px;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        /* ===============================================
+           SECCIÓN DE SERVICIOS
+           =============================================== */
+        .services {
+            padding: var(--spacing-xl) 0;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, rgba(26, 35, 50, 0.8) 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .section-header p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Grid de servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+
+        /* Tarjetas de servicio con efecto glassmorphism */
+        .service-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: var(--spacing-lg);
+            transition: all var(--transition-medium);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efecto hover con brillo */
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 212, 170, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+            pointer-events: none;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 212, 170, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary-color), #00B894);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ===============================================
+           MODAL DE FORMULARIO
+           =============================================== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--secondary-color);
+            border-radius: 20px;
+            padding: var(--spacing-lg);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform var(--transition-medium);
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .modal-header h3 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color var(--transition-fast);
+        }
+
+        .close-modal:hover {
+            color: var(--text-primary);
+        }
+
+        /* Estilos del formulario */
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all var(--transition-fast);
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(0, 212, 170, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Selector de fecha y hora personalizado */
+        .datetime-picker {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-sm);
+        }
+
+        /* Checkbox personalizado */
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        /* ===============================================
+           SECCIÓN DE CLIENTES/PARTNERS
+           =============================================== */
+        .partners {
+            padding: var(--spacing-xl) 0;
+            background: var(--dark-bg);
+        }
+
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: var(--spacing-lg);
+            align-items: center;
+            margin-top: var(--spacing-lg);
+        }
+
+        .partner-logo {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            transition: all var(--transition-fast);
+            filter: grayscale(100%);
+            opacity: 0.7;
+        }
+
+        .partner-logo:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.05);
+        }
+
+        /* ===============================================
+           FOOTER
+           =============================================== */
+        footer {
+            background: var(--secondary-color);
+            padding: var(--spacing-xl) 0 var(--spacing-md);
+            margin-top: var(--spacing-xl);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .footer-section h4 {
+            color: var(--primary-color);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-color);
+        }
+
+        .social-links {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-sm);
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-fast);
+        }
+
+        .social-links a:hover {
+            background: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: var(--spacing-md);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+        }
+
+        /* ===============================================
+           ANIMACIONES DE ENTRADA (Intersection Observer)
+           =============================================== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all var(--transition-slow);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all var(--transition-slow);
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all var(--transition-slow);
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Animación escalonada para elementos en grid */
+        .stagger-animation {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all var(--transition-slow);
+        }
+
+        .stagger-animation.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-animation:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-animation:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-animation:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-animation:nth-child(4) { transition-delay: 0.4s; }
+
+        /* ===============================================
+           RESPONSIVE DESIGN
+           =============================================== */
+        @media (max-width: 768px) {
+            /* Navegación móvil */
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--secondary-color);
+                flex-direction: column;
+                padding: var(--spacing-lg);
+                transition: left var(--transition-fast);
+            }
+
+            .nav-links.active {
+                left: 0;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            /* Hero responsive */
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-image {
+                margin-top: var(--spacing-lg);
+            }
+
+            .cta-group {
+                justify-content: center;
+            }
+
+            /* Servicios responsive */
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            /* Modal responsive */
+            .modal-content {
+                padding: var(--spacing-md);
+            }
+
+            .datetime-picker {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ===============================================
+           UTILIDADES
+           =============================================== */
+        .text-center { text-align: center; }
+        .mt-1 { margin-top: var(--spacing-xs); }
+        .mt-2 { margin-top: var(--spacing-sm); }
+        .mt-3 { margin-top: var(--spacing-md); }
+        .mt-4 { margin-top: var(--spacing-lg); }
+        .mt-5 { margin-top: var(--spacing-xl); }
+
+        /* Loading spinner */
+        .spinner {
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 3px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Mensajes de éxito/error */
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: var(--spacing-md);
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(0, 212, 170, 0.1);
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .message.error {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- ===============================================
+         NAVEGACIÓN PRINCIPAL
+         =============================================== -->
+    <nav id="navbar">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-rocket"></i>
+                    InAdvance
+                </a>
+                
+                <div class="nav-links" id="navLinks">
+                    <a href="#home">Inicio</a>
+                    <a href="#services">Servicios</a>
+                    <a href="#about">Nosotros</a>
+                    <a href="#partners">Clientes</a>
+                    <a href="#contact" class="btn btn-primary btn-sm">Contactar</a>
+                </div>
+                
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===============================================
+         HERO SECTION
+         =============================================== -->
+    <section class="hero" id="home">
+        <!-- Fondo de partículas animadas -->
+        <div class="particles-bg" id="particlesBg"></div>
+        
+        <!-- Red neuronal decorativa -->
+        <svg class="neural-network" viewBox="0 0 600 600">
+            <defs>
+                <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#00D4AA;stop-opacity:0.6" />
+                    <stop offset="100%" style="stop-color:#00B894;stop-opacity:0.2" />
+                </linearGradient>
+            </defs>
+            <!-- Aquí irían las líneas de la red neuronal generadas por JS -->
+        </svg>
+
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text slide-in-left">
+                    <h1>
+                        Impulsa tu negocio con nuestra experiencia en 
+                        <span class="gradient-text">datos y desarrollos digitales</span>
+                    </h1>
+                    <p>
+                        Nuestro compromiso es potenciar tu negocio con soluciones digitales innovadoras 
+                        y de conocimiento con la excelencia basándonos siempre en los análisis profundos de datos.
+                    </p>
+                    
+                    <div class="cta-group">
+                        <button class="btn btn-primary" onclick="openModal('schedule')">
+                            <i class="fas fa-calendar-check"></i>
+                            Agendar Cita
+                        </button>
+                        <button class="btn btn-secondary" onclick="openModal('callback')">
+                            <i class="fas fa-phone"></i>
+                            Solicitar Llamada
+                        </button>
+                        <button class="btn btn-accent" onclick="openModal('contact')">
+                            <i class="fas fa-envelope"></i>
+                            Dejar Datos
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="hero-image slide-in-right">
+                    <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=800&h=600&fit=crop" 
+                         alt="Transformación Digital"
+                         loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===============================================
+         SECCIÓN DE SERVICIOS
+         =============================================== -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nuestros <span class="gradient-text">Servicios</span></h2>
+                <p>Soluciones integrales para impulsar tu transformación digital</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Servicio 1: Transformación Digital -->
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <h3>Transformación Y Desarrollo Digital</h3>
+                    <p>
+                        En Factor IT impulsamos la transformación digital de tu empresa para 
+                        optimizar y modernizar todos tus procesos con las más avanzadas soluciones.
+                    </p>
+                    <a href="#" class="btn btn-secondary mt-3">Ver Más</a>
+                </div>
+                
+                <!-- Servicio 2: Data & Analytics -->
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Data & Analytics</h3>
+                    <p>
+                        Utilizamos datos para generar conocimiento accionable y ayudarte a tomar 
+                        decisiones informadas y optimizar tus operaciones empresariales.
+                    </p>
+                    <a href="#" class="btn btn-secondary mt-3">Ver Más</a>
+                </div>
+                
+                <!-- Servicio 3: Consultoría Estratégica -->
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3>Consultoría Estratégica</h3>
+                    <p>
+                        Asesoramos a nuestros clientes en el diseño e implementación de sus 
+                        objetivos conectados con las mejores prácticas del mercado.
+                    </p>
+                    <a href="#" class="btn btn-secondary mt-3">Ver Más</a>
+                </div>
+                
+                <!-- Servicio 4: Soporte Y Continuidad -->
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Soporte Y Continuidad</h3>
+                    <p>
+                        Garantizamos la continuidad y eficiencia de tu negocio con nuestro 
+                        soporte técnico especializado y estrategias proactivas.
+                    </p>
+                    <a href="#" class="btn btn-secondary mt-3">Ver Más</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===============================================
+         SECCIÓN DE PARTNERS/CLIENTES
+         =============================================== -->
+    <section class="partners" id="partners">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Potenciamos a <span class="gradient-text">empresas líderes</span> de la región</h2>
+                <p>Confianza y resultados que respaldan nuestra experiencia</p>
+            </div>
+            
+            <div class="partners-grid">
+                <!-- Logos de partners (usando placeholders) -->
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/150x60/00D4AA/FFFFFF?text=FEMSA" alt="FEMSA">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/150x60/00D4AA/FFFFFF?text=SMU" alt="SMU">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/150x60/00D4AA/FFFFFF?text=PROMIGAS" alt="PROMIGAS">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/150x60/00D4AA/FFFFFF?text=COLSANITAS" alt="COLSANITAS">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/150x60/00D4AA/FFFFFF?text=MINERAS" alt="MINERAS">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/150x60/00D4AA/FFFFFF?text=LAS+BAMBAS" alt="LAS BAMBAS">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===============================================
+         SECCIÓN ECOSISTEMA DE PARTNERS
+         =============================================== -->
+    <section class="services" style="background: var(--dark-bg);">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Ecosistema de <span class="gradient-text">Partners</span></h2>
+                <p>
+                    Con un enfoque abierto ofrecemos <strong>soluciones a medida</strong>. Trabajamos 
+                    con las principales empresas tecnológicas del mundo para brindar soluciones 
+                    integrales que impulsen las <strong>transformaciones digitales</strong> de nuestros clientes.
+                </p>
+            </div>
+            
+            <div class="partners-grid">
+                <!-- Tecnología Partners -->
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/120x50/00D4AA/FFFFFF?text=Teradata" alt="Teradata">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/120x50/00D4AA/FFFFFF?text=Cloudera" alt="Cloudera">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/120x50/00D4AA/FFFFFF?text=Oracle" alt="Oracle">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/120x50/00D4AA/FFFFFF?text=MongoDB" alt="MongoDB">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/120x50/00D4AA/FFFFFF?text=Microsoft" alt="Microsoft">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/120x50/00D4AA/FFFFFF?text=AWS" alt="AWS">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/120x50/00D4AA/FFFFFF?text=Elastic" alt="Elastic">
+                </div>
+                <div class="partner-logo stagger-animation">
+                    <img src="https://via.placeholder.com/120x50/00D4AA/FFFFFF?text=RedHat" alt="RedHat">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===============================================
+         SECCIÓN DE INDUSTRIAS
+         =============================================== -->
+    <section class="services" id="industries">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>¿Con qué <span class="gradient-text">Industrias</span> trabajamos?</h2>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3>MINERÍA - ENERGÍA</h3>
+                </div>
+                
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>EDUCACIÓN</h3>
+                </div>
+                
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>SERVICIOS FINANCIEROS</h3>
+                </div>
+                
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>RETAIL</h3>
+                </div>
+                
+                <div class="service-card stagger-animation">
+                    <div class="service-icon">
+                        <i class="fas fa-satellite-dish"></i>
+                    </div>
+                    <h3>TELECOMUNICACIONES</h3>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4 fade-in">
+                <p style="color: var(--text-secondary); max-width: 800px; margin: 0 auto;">
+                    En <strong>InAdvance</strong> durante 14 años hemos ofrecido soluciones basadas en datos vinculadas al uso de modelos de IA, 
+                    servicios digitales para impulsar la transformación digital y apoyar la continuidad operacional, y por supuesto 
+                    brindar consultoría estratégica para guiar en diseño de soluciones adecuadas para optimizar las iniciativas y tecnologías claves 
+                    que desarrollamos nuestros negocios. <strong>Nuestra experiencia</strong>, sugerencias y recomendaciones estarán 
+                    <strong>siempre disponibles para ustedes en todo momento</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===============================================
+         SECCIÓN CALL TO ACTION
+         =============================================== -->
+    <section class="hero" style="min-height: auto; padding: var(--spacing-xl) 0;">
+        <div class="container">
+            <div class="text-center fade-in">
+                <h2 style="font-size: 3rem; margin-bottom: var(--spacing-lg);">
+                    ¡Únete a <span class="gradient-text">nosotros</span>!
+                </h2>
+                <button class="btn btn-primary btn-lg" onclick="openModal('contact')">
+                    CONTÁCTANOS
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===============================================
+         FOOTER
+         =============================================== -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <a href="#" class="logo" style="font-size: 2rem;">
+                        <i class="fas fa-rocket"></i>
+                        InAdvance
+                    </a>
+                    <p class="mt-2">
+                        Transformando el presente, asegurando el futuro digital de tu empresa.
+                    </p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" aria-label="Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Nuestros Servicios</h4>
+                    <ul>
+                        <li><a href="#services">Transformación Digital</a></li>
+                        <li><a href="#services">Data & Analytics</a></li>
+                        <li><a href="#services">Consultoría Estratégica</a></li>
+                        <li><a href="#services">Soporte Continuo</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li>
+                            <i class="fas fa-envelope"></i> 
+                            contacto@inadvance.cloud
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i> 
+                            +591 3 333-4444
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i> 
+                            Santa Cruz de la Sierra, Bolivia
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <p>Suscríbete para recibir las últimas novedades</p>
+                    <form class="mt-2" onsubmit="handleNewsletter(event)">
+                        <div class="form-group">
+                            <input type="email" placeholder="tu@email.com" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Suscribirse
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 InAdvance. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===============================================
+         MODALES DE FORMULARIOS
+         =============================================== -->
+    <!-- Modal de Agendar Cita -->
+    <div class="modal" id="scheduleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Agendar una Cita</h3>
+                <button class="close-modal" onclick="closeModal('schedule')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="message" id="scheduleMessage"></div>
+            
+            <form onsubmit="handleScheduleSubmit(event)">
+                <div class="form-group">
+                    <label for="scheduleName">Nombre Completo *</label>
+                    <input type="text" id="scheduleName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="scheduleEmail">Correo Electrónico *</label>
+                    <input type="email" id="scheduleEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="scheduleCompany">Empresa</label>
+                    <input type="text" id="scheduleCompany">
+                </div>
+                
+                <div class="form-group">
+                    <label>Fecha y Hora Preferida *</label>
+                    <div class="datetime-picker">
+                        <input type="date" id="scheduleDate" required min="">
+                        <input type="time" id="scheduleTime" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="scheduleTopic">Tema a Tratar *</label>
+                    <select id="scheduleTopic" required>
+                        <option value="">Selecciona un tema</option>
+                        <option value="transformacion-digital">Transformación Digital</option>
+                        <option value="data-analytics">Data & Analytics</option>
+                        <option value="consultoria">Consultoría Estratégica</option>
+                        <option value="soporte">Soporte Técnico</option>
+                        <option value="otro">Otro</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="scheduleMessage">Mensaje Adicional</label>
+                    <textarea id="scheduleMessageText"></textarea>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="scheduleConsent" required>
+                    <label for="scheduleConsent">
+                        Acepto que InAdvance me contacte para confirmar la cita y enviarme información relevante.
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mt-3">
+                    <i class="fas fa-calendar-check"></i>
+                    Confirmar Cita
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Solicitar Llamada -->
+    <div class="modal" id="callbackModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Solicitar una Llamada</h3>
+                <button class="close-modal" onclick="closeModal('callback')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="message" id="callbackMessage"></div>
+            
+            <form onsubmit="handleCallbackSubmit(event)">
+                <div class="form-group">
+                    <label for="callbackName">Nombre Completo *</label>
+                    <input type="text" id="callbackName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="callbackPhone">Número de Teléfono *</label>
+                    <input type="tel" id="callbackPhone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="callbackEmail">Correo Electrónico</label>
+                    <input type="email" id="callbackEmail">
+                </div>
+                
+                <div class="form-group">
+                    <label for="callbackTime">Horario Preferido *</label>
+                    <select id="callbackTime" required>
+                        <option value="">Selecciona un horario</option>
+                        <option value="manana">Mañana (8:00 - 12:00)</option>
+                        <option value="tarde">Tarde (12:00 - 18:00)</option>
+                        <option value="noche">Noche (18:00 - 20:00)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="callbackReason">Motivo de la Consulta</label>
+                    <textarea id="callbackReason" placeholder="Cuéntanos brevemente en qué podemos ayudarte..."></textarea>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="callbackConsent" required>
+                    <label for="callbackConsent">
+                        Autorizo a InAdvance a contactarme telefónicamente.
+                    </label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mt-3">
+                    <i class="fas fa-phone"></i>
+                    Solicitar Llamada
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal de Dejar Datos -->
+    <div class="modal" id="contactModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Déjanos tus Datos</h3>
+                <button class="close-modal" onclick="closeModal('contact')">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="message" id="contactMessage"></div>
+            
+            <form onsubmit="handleContactSubmit(event)">
+                <div class="form-group">
+                    <label for="contactName">Nombre Completo *</label>
+                    <input type="text" id="contactName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactEmail">Correo Electrónico *</label>
+                    <input type="email" id="contactEmail" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactPhone">Teléfono</label>
+                    <input type="tel" id="contactPhone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactCompany">Empresa</label>
+                    <input type="text" id="contactCompany">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contactInterest">¿Qué servicio te interesa?</label>
+                    <select id="contactInterest">
+                        <option value="">Selecciona un servicio</option>
+                        <option value="transformacion-digital">Transformación Digital</option>
+                        <option value="data-analytics">Data & Analytics</option>
+                        <option value="consultoria">Consultoría Estratégica</option>
+                        <option value="soporte">Soporte Técnico</option>
+                        <option value="todos">Todos los servicios</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Autorizo ser contactado por:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="contactEmail" checked>
+                        <label for="contactEmail">Correo Electrónico</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="contactSMS">
+                        <label for="contactSMS">SMS/WhatsApp</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="contactCall">
+                        <label for="contactCall">Llamada Telefónica</label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary mt-3">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar Datos
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ===============================================
+         JAVASCRIPT
+         =============================================== -->
+    <script>
+        /* ==============================================
+           DOCUMENTACIÓN JAVASCRIPT
+           ==============================================
+           Este script maneja toda la interactividad del sitio:
+           1. Navegación sticky y menú móvil
+           2. Animaciones de entrada con Intersection Observer
+           3. Partículas de fondo animadas
+           4. Manejo de modales y formularios
+           5. Integración con Google Sheets (opcional)
+        */
+
+        // ==============================================
+        // 1. NAVEGACIÓN STICKY Y MENÚ MÓVIL
+        // ==============================================
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.getElementById('navLinks');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+
+        // Efecto sticky en scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Toggle menú móvil
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            const icon = mobileMenuToggle.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+
+        // Cerrar menú móvil al hacer click en un enlace
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                mobileMenuToggle.querySelector('i').classList.add('fa-bars');
+                mobileMenuToggle.querySelector('i').classList.remove('fa-times');
+            });
+        });
+
+        // ==============================================
+        // 2. ANIMACIONES DE ENTRADA (Intersection Observer)
+        // ==============================================
+        const animatedElements = document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .stagger-animation');
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Una vez visible, dejamos de observar para mejor rendimiento
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+
+        // ==============================================
+        // 3. PARTÍCULAS DE FONDO ANIMADAS
+        // ==============================================
+        const particlesBg = document.getElementById('particlesBg');
+        const particleCount = 50; // Número de partículas
+
+        // Crear partículas
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            
+            // Posición aleatoria
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.top = Math.random() * 100 + '%';
+            
+            // Tamaño aleatorio
+            const size = Math.random() * 4 + 2;
+            particle.style.width = size + 'px';
+            particle.style.height = size + 'px';
+            
+            // Retraso de animación aleatorio
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (Math.random() * 20 + 20) + 's';
+            
+            particlesBg.appendChild(particle);
+        }
+
+        // ==============================================
+        // 4. MANEJO DE MODALES
+        // ==============================================
+        function openModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevenir scroll del body
+            }
+        }
+
+        function closeModal(type) {
+            const modal = document.getElementById(type + 'Modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restaurar scroll
+                
+                // Limpiar mensajes
+                const message = modal.querySelector('.message');
+                if (message) {
+                    message.classList.remove('show', 'success', 'error');
+                }
+            }
+        }
+
+        // Cerrar modal al hacer click fuera
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    const modalId = modal.id.replace('Modal', '');
+                    closeModal(modalId);
+                }
+            });
+        });
+
+        // ==============================================
+        // 5. CONFIGURACIÓN DE FECHA MÍNIMA
+        // ==============================================
+        // Establecer fecha mínima como hoy
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('scheduleDate');
+        if (dateInput) {
+            dateInput.min = today;
+        }
+
+        // ==============================================
+        // 6. MANEJO DE FORMULARIOS
+        // ==============================================
+        
+        // Función para mostrar mensajes
+        function showMessage(modalType, message, isSuccess = true) {
+            const messageEl = document.getElementById(modalType + 'Message');
+            if (messageEl) {
+                messageEl.textContent = message;
+                messageEl.classList.add('show', isSuccess ? 'success' : 'error');
+                messageEl.classList.remove(isSuccess ? 'error' : 'success');
+                
+                // Auto-ocultar después de 5 segundos
+                setTimeout(() => {
+                    messageEl.classList.remove('show');
+                }, 5000);
+            }
+        }
+
+        // Función para enviar datos a Google Sheets
+        async function sendToGoogleSheets(data) {
+            // IMPORTANTE: Reemplaza esta URL con tu Apps Script Web App URL
+            const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+            
+            try {
+                const response = await fetch(GOOGLE_APPS_SCRIPT_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Importante para evitar CORS
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                // Con no-cors no podemos leer la respuesta, asumimos éxito
+                return { success: true };
+            } catch (error) {
+                console.error('Error:', error);
+                return { success: false, error: error.message };
+            }
+        }
+
+        // Manejador para Agendar Cita
+        async function handleScheduleSubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                type: 'schedule',
+                name: document.getElementById('scheduleName').value,
+                email: document.getElementById('scheduleEmail').value,
+                company: document.getElementById('scheduleCompany').value,
+                date: document.getElementById('scheduleDate').value,
+                time: document.getElementById('scheduleTime').value,
+                topic: document.getElementById('scheduleTopic').value,
+                message: document.getElementById('scheduleMessageText').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Mostrar loading
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px;"></div>';
+            submitBtn.disabled = true;
+            
+            // Simular envío (reemplazar con sendToGoogleSheets(formData) cuando tengas la URL)
+            setTimeout(() => {
+                showMessage('schedule', '¡Cita agendada exitosamente! Te contactaremos pronto para confirmar.', true);
+                event.target.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                // Cerrar modal después de 2 segundos
+                setTimeout(() => closeModal('schedule'), 2000);
+            }, 1500);
+        }
+
+        // Manejador para Solicitar Llamada
+        async function handleCallbackSubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                type: 'callback',
+                name: document.getElementById('callbackName').value,
+                phone: document.getElementById('callbackPhone').value,
+                email: document.getElementById('callbackEmail').value,
+                preferredTime: document.getElementById('callbackTime').value,
+                reason: document.getElementById('callbackReason').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Mostrar loading
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px;"></div>';
+            submitBtn.disabled = true;
+            
+            // Simular envío
+            setTimeout(() => {
+                showMessage('callback', '¡Solicitud recibida! Te llamaremos en el horario indicado.', true);
+                event.target.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                setTimeout(() => closeModal('callback'), 2000);
+            }, 1500);
+        }
+
+        // Manejador para Dejar Datos
+        async function handleContactSubmit(event) {
+            event.preventDefault();
+            
+            const formData = {
+                type: 'contact',
+                name: document.getElementById('contactName').value,
+                email: document.getElementById('contactEmail').value,
+                phone: document.getElementById('contactPhone').value,
+                company: document.getElementById('contactCompany').value,
+                interest: document.getElementById('contactInterest').value,
+                contactPreferences: {
+                    email: document.getElementById('contactEmail').checked,
+                    sms: document.getElementById('contactSMS').checked,
+                    call: document.getElementById('contactCall').checked
+                },
+                timestamp: new Date().toISOString()
+            };
+            
+            // Mostrar loading
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px;"></div>';
+            submitBtn.disabled = true;
+            
+            // Simular envío
+            setTimeout(() => {
+                showMessage('contact', '¡Datos recibidos correctamente! Pronto nos pondremos en contacto.', true);
+                event.target.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+                
+                setTimeout(() => closeModal('contact'), 2000);
+            }, 1500);
+        }
+
+        // Manejador para Newsletter
+        function handleNewsletter(event) {
+            event.preventDefault();
+            
+            const email = event.target.querySelector('input[type="email"]').value;
+            
+            // Mostrar loading
+            const submitBtn = event.target.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<div class="spinner" style="width: 20px; height: 20px;"></div>';
+            submitBtn.disabled = true;
+            
+            // Simular envío
+            setTimeout(() => {
+                alert('¡Gracias por suscribirte! Pronto recibirás nuestras novedades.');
+                event.target.reset();
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 1500);
+        }
+
+        // ==============================================
+        // 7. GENERACIÓN DE RED NEURONAL SVG
+        // ==============================================
+        function generateNeuralNetwork() {
+            const svg = document.querySelector('.neural-network');
+            if (!svg) return;
+            
+            // Generar nodos y conexiones aleatorias
+            const nodes = [];
+            const connections = [];
+            
+            // Crear nodos
+            for (let i = 0; i < 15; i++) {
+                nodes.push({
+                    x: Math.random() * 600,
+                    y: Math.random() * 600,
+                    r: Math.random() * 3 + 2
+                });
+            }
+            
+            // Crear conexiones
+            nodes.forEach((node1, i) => {
+                nodes.slice(i + 1).forEach(node2 => {
+                    if (Math.random() > 0.7) { // 30% de probabilidad de conexión
+                        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                        line.setAttribute('x1', node1.x);
+                        line.setAttribute('y1', node1.y);
+                        line.setAttribute('x2', node2.x);
+                        line.setAttribute('y2', node2.y);
+                        line.setAttribute('stroke', 'url(#lineGradient)');
+                        line.setAttribute('stroke-width', '1');
+                        line.setAttribute('opacity', '0.3');
+                        svg.appendChild(line);
+                    }
+                });
+            });
+            
+            // Crear nodos
+            nodes.forEach(node => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', node.x);
+                circle.setAttribute('cy', node.y);
+                circle.setAttribute('r', node.r);
+                circle.setAttribute('fill', '#00D4AA');
+                circle.setAttribute('opacity', '0.6');
+                svg.appendChild(circle);
+            });
+        }
+
+        // Llamar a la función cuando la página carga
+        window.addEventListener('load', generateNeuralNetwork);
+
+        // ==============================================
+        // 8. SCROLL SUAVE PERSONALIZADO
+        // ==============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 80; // Compensar altura del navbar
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ==============================================
+        // 9. LAZY LOADING DE IMÁGENES
+        // ==============================================
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.remove('lazy');
+                        observer.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+
+        /* ==============================================
+           GOOGLE APPS SCRIPT PARA GOOGLE SHEETS
+           ==============================================
+           Copia este código en Google Apps Script:
+           
+           function doPost(e) {
+             try {
+               const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+               const data = JSON.parse(e.postData.contents);
+               
+               // Agregar timestamp
+               data.timestamp = new Date();
+               
+               // Convertir objeto a array para insertar en fila
+               const row = [
+                 data.timestamp,
+                 data.type,
+                 data.name,
+                 data.email,
+                 data.phone || '',
+                 data.company || '',
+                 data.date || '',
+                 data.time || '',
+                 data.topic || data.interest || '',
+                 data.message || data.reason || '',
+                 JSON.stringify(data.contactPreferences || {})
+               ];
+               
+               sheet.appendRow(row);
+               
+               return ContentService
+                 .createTextOutput(JSON.stringify({ success: true }))
+                 .setMimeType(ContentService.MimeType.JSON);
+             } catch (error) {
+               return ContentService
+                 .createTextOutput(JSON.stringify({ success: false, error: error.toString() }))
+                 .setMimeType(ContentService.MimeType.JSON);
+             }
+           }
+        */
+    </script>
+</body>
+</html>
